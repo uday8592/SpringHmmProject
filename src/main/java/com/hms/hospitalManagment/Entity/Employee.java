@@ -1,4 +1,4 @@
-package com.hms.hospitalManagment.Entity1;
+package com.hms.hospitalManagment.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
