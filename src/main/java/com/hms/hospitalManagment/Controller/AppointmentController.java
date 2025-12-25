@@ -21,14 +21,14 @@ public class AppointmentController {
     public List<Appointment> getAppointments(){
         return appointmentService.getAppointments();
     }
-    @PutMapping("/updateAppontment/{Empid}")
-    public Appointment updateAppointment(@RequestBody Appointment appointment , @PathVariable int Empid){
-        appointment.setAppointmentId(Empid);
+    @PutMapping("/updateAppontment/{AppointmentId}")
+    public Appointment updateAppointment(@RequestBody Appointment appointment , @PathVariable int AppointmentId){
+        appointment.setAppointmentId(AppointmentId);
         return appointmentService.saveAppointment(appointment);
     }
-   @DeleteMapping("/deleteAppointment/{Empid}")
-    public ResponseEntity<?> deleteAppointment(@PathVariable int Empid){
-      return   appointmentService.deleteAppointment(Empid);
+   @DeleteMapping("/deleteAppointment/{AppointmentId}")
+    public ResponseEntity<?> deleteAppointment(@PathVariable int AppointmentId){
+      return   appointmentService.deleteAppointment(AppointmentId);
 
    }
 

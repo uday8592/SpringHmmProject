@@ -24,8 +24,8 @@ public class AppointmentService {
     }
 
 
-    public ResponseEntity<?> deleteAppointment(int empid) {
-        appointmentRepo.deleteById(empid);
+    public ResponseEntity<?> deleteAppointment(int AppointmentId) {
+        appointmentRepo.deleteById(AppointmentId);
         return null;
     }
 }
