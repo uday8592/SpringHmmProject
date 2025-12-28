@@ -83,22 +83,17 @@ public class EmployeeControllerTest {
         assertEquals("Rajesh", result.getEmpFname());
     }
 
-//    @Test
-//    void deleteEmployeeIsSuccessful() {
-//
-//        int empId = 1;
-//
-//        ResponseEntity<?> mockResponse =
-//                ResponseEntity.ok("Employee deleted successfully");
-//
-//        Mockito.when(employeeService.deleteEmploye(anyInt()))
-//                .thenReturn(mockResponse);
-//
-//        ResponseEntity<?> response =
-//                employeeController.deleteEmployee(empId);
-//
-//        assertNotNull(response);
-//        assertEquals(200, response.getStatusCodeValue());
-//        assertEquals("Employee deleted successfully", response.getBody());
-//    }
+    @Test
+    void deleteEmployeeIsSuccessful() {
+        int empId = 1;
+        ResponseEntity<String> mockResponse = ResponseEntity.ok("Employee deleted successfully");
+
+        Mockito.doReturn(mockResponse).when(employeeService).deleteEmploye(empId);
+
+        ResponseEntity<?> response = employeeController.deleteEmployee(empId);
+
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCode().value());
+        assertEquals("Employee deleted successfully", response.getBody());
+    }
 }

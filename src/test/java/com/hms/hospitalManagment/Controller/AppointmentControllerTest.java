@@ -1,6 +1,5 @@
 package com.hms.hospitalManagment.Controller;
 
-
 import com.hms.hospitalManagment.Entity.Appointment;
 import com.hms.hospitalManagment.Service.AppointmentService;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 
 @ExtendWith(MockitoExtension.class)
 public class AppointmentControllerTest {
@@ -26,17 +24,16 @@ public class AppointmentControllerTest {
     @Mock
     private AppointmentService appointmentService;
 
-
     @Test
-    public void myFirstTest(){
+    public void myFirstTest() {
         System.out.println("This is my first test ");
     }
 
     private Appointment appointment;
 
     @BeforeEach
-    void setUp(){
-        appointment=new Appointment();
+    void setUp() {
+        appointment = new Appointment();
         appointment.setAppointmentId(1);
         appointment.setPatientId(23);
         appointment.setPatientFName("uday");
@@ -45,18 +42,17 @@ public class AppointmentControllerTest {
 
     }
 
-
     @Test
-    void saveAppointmentIsSavedSuccessfully(){
-        Mockito.when(appointmentController.saveAppointment(any(Appointment.class))).thenReturn(appointment);
+    void saveAppointmentIsSavedSuccessfully() {
+        Mockito.when(appointmentService.saveAppointment(any(Appointment.class))).thenReturn(appointment);
         Appointment returnResult = appointmentController.saveAppointment(appointment);
         assertNotNull(returnResult);
-        assertEquals(appointment.getAppointmentId() ,returnResult.getAppointmentId());
+        assertEquals(appointment.getAppointmentId(), returnResult.getAppointmentId());
 
     }
 
     @Test
-    void getAppointmentListIsSuccessFully(){
+    void getAppointmentListIsSuccessFully() {
         List<Appointment> appointmentList = new ArrayList<>();
         appointmentList.add(appointment);
         Appointment appointment2 = new Appointment();
@@ -66,39 +62,34 @@ public class AppointmentControllerTest {
         appointment.setEmail("rajesh@gmail.com");
         appointment.setStatus("Active");
         appointmentList.add(appointment2);
-        Mockito.when(appointmentController.getAppointments()).thenReturn(appointmentList);
-        List<Appointment>resultList = appointmentController.getAppointments();
+        Mockito.when(appointmentService.getAppointments()).thenReturn(appointmentList);
+        List<Appointment> resultList = appointmentController.getAppointments();
         assertNotNull(resultList);
-        assertEquals(appointmentList.size(),2);
+        assertEquals(2, resultList.size());
     }
 
     @Test
-    void updateAppointmentIsSuccessfull(){
-        int appointmentId =1;
+    void updateAppointmentIsSuccessfull() {
+        int appointmentId = 1;
         appointment.setPatientFName("rajesh");
         Mockito.when(appointmentService.saveAppointment(any(Appointment.class))).thenReturn(appointment);
-        Appointment resultAppointment = appointmentController.updateAppointment(appointment,appointmentId);
+        Appointment resultAppointment = appointmentController.updateAppointment(appointment, appointmentId);
         assertNotNull(resultAppointment);
-        assertEquals(resultAppointment.getAppointmentId(),1);
-        assertEquals(resultAppointment.getPatientFName(),"rajesh");
+        assertEquals(resultAppointment.getAppointmentId(), 1);
+        assertEquals(resultAppointment.getPatientFName(), "rajesh");
     }
 
+    @Test
+    void testDeleteAppointment() {
+        int appointmentId = 1;
+        ResponseEntity<String> mockResponse = ResponseEntity.ok("Appointment deleted successfully");
+        Mockito.doReturn(mockResponse).when(appointmentService).deleteAppointment(appointmentId);
 
-//    @Test
-//    void testDeleteAppointment() {
-//        int appointmentId = 1;
-//        ResponseEntity<?> mockResponse =
-//                ResponseEntity.ok("Appointment deleted successfully");
-//        Mockito.when(appointmentService.deleteAppointment(appointmentId))
-//                .thenReturn(mockResponse);
-//
-//        ResponseEntity<?> result = appointmentController.deleteAppointment(appointmentId);
-//        assertNull(result);
-//        assertEquals(200, result.getStatusCode().value());
-//        assertEquals("Appointment deleted successfully", result.getBody());
-//
-//    }
+        ResponseEntity<?> result = appointmentController.deleteAppointment(appointmentId);
+        assertNotNull(result);
+        assertEquals(200, result.getStatusCode().value());
+        assertEquals("Appointment deleted successfully", result.getBody());
 
-
+    }
 
 }
