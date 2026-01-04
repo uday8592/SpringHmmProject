@@ -11,7 +11,7 @@ public class AppointmentControllerWebClient {
 
     @Autowired
     private WebClient webClient;
-    @PostMapping("/saveAppointment")
+    @PostMapping("/saveAppointmentt")
     public Appointment saveAppointment(@RequestBody Appointment appointment){
         return
                 webClient
@@ -32,6 +32,7 @@ public class AppointmentControllerWebClient {
                 .collectList()
                 .block();
     }
+
     @GetMapping("/getAppointmentById/{appointmentId}")
     public Appointment getAppointmentById(@PathVariable int appointmentId ){
         return webClient.get()
