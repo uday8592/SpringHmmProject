@@ -19,7 +19,7 @@ public class AppointmentControllerRestTemplate {
 
     private static final Logger logger = LoggerFactory.getLogger(AppointmentControllerRestTemplate.class);
 
-    @GetMapping("/getAppointment1")
+    @GetMapping("/getAppointment_one")
     public List<Appointment> getAppointment(){
         String url = "http://localhost:8081/getAppointment";
 
@@ -27,7 +27,7 @@ public class AppointmentControllerRestTemplate {
         logger.info("Data get successfully : {}",response.getStatusCode());
         return response.getBody();
     }
-    @GetMapping("/getAppointmentByIdd/{appointmentId}")
+    @GetMapping("/getAppointmentById_one/{appointmentId}")
     public Appointment getAppointmentById(@PathVariable int appointmentId){
         String url = "http://localhost:8081/getAppointmentById/{appointmentId}";
        Appointment appointment= restTemplate.getForObject(url, Appointment.class,appointmentId);
@@ -35,13 +35,13 @@ public class AppointmentControllerRestTemplate {
        return appointment;
     }
 
-    @DeleteMapping("/deleteAppointmentByIdd/{appointmentId}")
+    @DeleteMapping("/deleteAppointmentById_one/{appointmentId}")
     public void deleteAppointmentById(@PathVariable int appointmentId){
         String url = "http://localhost:8081/deleteAppointment/{appointmentId}";
          restTemplate.delete(url,appointmentId);
 
     }
-    @PutMapping("/updateAppointment1/{appointmentId}")
+    @PutMapping("/updateAppointment_one/{appointmentId}")
     public Appointment updateAppointment(@PathVariable int appointmentId , @RequestBody Appointment appointment){
         appointment.setAppointmentId(appointmentId);
         String url = "http://localhost:8081/updateAppointment";

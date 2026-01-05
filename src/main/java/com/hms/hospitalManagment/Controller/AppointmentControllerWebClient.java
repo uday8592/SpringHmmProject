@@ -1,17 +1,15 @@
 package com.hms.hospitalManagment.Controller;
-
 import com.hms.hospitalManagment.Entity.Appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
-
 @RestController
 public class AppointmentControllerWebClient {
 
     @Autowired
     private WebClient webClient;
-    @PostMapping("/saveAppointmentt")
+    @PostMapping("/saveAppointment_one")
     public Appointment saveAppointment(@RequestBody Appointment appointment){
         return
                 webClient
@@ -41,7 +39,6 @@ public class AppointmentControllerWebClient {
                 .bodyToMono(Appointment.class)
                 .block();
     }
-
     @PutMapping("/updateAppointmentById/{appointmentId}")
     public Appointment updateAppointment(@PathVariable int appointmentId,@RequestBody Appointment appointment){
         appointment.setAppointmentId(appointmentId);
@@ -53,7 +50,6 @@ public class AppointmentControllerWebClient {
                 .bodyToMono(Appointment.class)
                 .block();
     }
-
     @DeleteMapping("/deleteAppointmentById/{appointmentId}")
     public void deleteAppointmentById(@PathVariable int appointmentId){
       webClient.delete()
